@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+
+<head>
+  <title>ArchiMate Graph Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=1.5, user-scalable=yes">
+  <link rel="stylesheet" href="css/tail.select-light.css">
+  <link rel="stylesheet" href="css/autoComplete.css">
+  <link rel="stylesheet" href="css/archigraph.css">
+</head>
+
+<body>
+  
+  <header style="display: none;">
+    <div id="header-logo">
+      <svg width="20" height="20" viewBox="0 0 20 20">
+        <g>
+          <path d="M 7 11 A 1 1 0 0 0 11 11 A 1 1 0 0 0 7 11 Z M 8 12 L 5 16 M 2 17 A 1 1 0 0 0 6 17 A 1 1 0 0 0 2 17 M 13 16 L 10 12 m 2 5 A 1 1 0 0 0 16 17 A 1 1 0 0 0 12 17 Z m -5 -13 A 1 1 0 0 0 11 4 A 1 1 0 0 0 7 4 Z M 9 6 L 9 9"/>
+        </g>
+      </svg>
+    </div>
+    <h1>ArchiMate Graph Explorer</h1>
+    <div id="header-right">
+      <div id="action-reload" class="header-action">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <g fill="#eee">
+            <title>reload the model</title>
+            <path d="M15.65 4.35A8 8 0 1 0 17.4 13h-2.22a6 6 0 1 1-1-7.22L11 9h7V2z"/>
+          </g>
+        </svg>
+      </div>
+      <div id="action-model-overview" class="header-action">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <g fill="#eee">
+            <title>model overview</title>
+            <path d="M 12 2 A 1 1 0 0 0 12 18 A 1 1 0 0 0 12 2 V 4 A 1 1 0 0 1 12 16 A 1 1 0 0 1 12 4 Z M 11 8 V 15 H 12 H 13 V 8 Z M 11 7 H 13 V 5 H 11 Z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <dialog id="dialog-overview">
+    <div id="dialog-overview-close-x">X</div>
+    <h3>ArchiMate Model</h3>
+    <h4 id="model-name"></h4>
+    <div id="model-documentation"></div>
+
+    <br /><hr />
+
+    <h3 id="about-title">ArchiMate Graph Explorer</h3>
+    <div id="about-documentation">The ArchiMate Graph Explorer renders an interactive force directed graph from an ArchiMate Model Exchange Format file.</div>
+    <h4>How to browse</h4>
+    <div id="about-documentation">
+      <ul>
+        <li>Use the element name search box to select a root element, or just use the dropdown lists to filter the elements and relationships</li>
+        <li>Pan and zoom to move around</li>
+        <li>Drag elements to arrange them to fixed positions</li>
+        <li>Click/tap a fixed element to un-fix its position</li>
+        <li>Double-click/tap an element to set it as the root element</li>
+        <li>Clear the element name search box to unset the root element</li>
+      </ul>
+    </div>
+    
+    <br /><hr />
+    
+    <h3 id="about-title">About</h3>
+    <div id="about-documentation">Developed by: Declan Bright
+      <br />License: MIT
+      <br />3rd Party Libraries:
+      <ul style="margin-top: 0.5em;">
+        <li><a href="https://d3js.org/">d3.js</a></li>
+        <li><a href="https://github.com/wolffe/tail.select.js">tail.select.js</a></li>
+        <li><a href="https://tarekraafat.github.io/autoComplete.js/#/">autoComplete.js</a></li>
+      </ul>
+    </div>
+    <div class="dialog-buttons">
+      <button id="dialog-overview-close" class="dialog-button">Close</button>
+    </div>
+  </dialog>
+
+  <div id="filter-bar">
+    <div id="rootNodeSearchFilter-container" class="filter-container filter-hidden">
+    </div>
+    <div id="nodeTypeFilter-container" class="filter-container filter-hidden">
+      <select id="nodeTypeFilter" multiple>
+        <optgroup label="Application">
+          <option value="ApplicationComponent">Application Component</option>
+          <option value="ApplicationCollaboration">Application Collaboration</option>
+          <option value="ApplicationEvent">Application Event</option>
+          <option value="ApplicationFunction">Application Function</option>
+          <option value="ApplicationInteraction">Application Interaction</option>
+          <option value="ApplicationInterface">Application Interface</option>
+          <option value="ApplicationProcess">Application Process</option>
+          <option value="ApplicationService">Application Service</option>
+          <option value="DataObject">Data Object</option>
+        </optgroup>
+        <optgroup label="Business">
+          <option value="BusinessActor">Business Actor</option>
+          <option value="BusinessCollaboration">Business Collaboration</option>
+          <option value="BusinessEvent">Business Event</option>
+          <option value="BusinessFunction">Business Function</option>
+          <option value="BusinessInteraction">Business Interaction</option>
+          <option value="BusinessInterface">Business Interface</option>
+          <option value="BusinessObject">Business Object</option>
+          <option value="BusinessProcess">Business Process</option>
+          <option value="BusinessRole">Business Role</option>
+          <option value="BusinessService">Business Service</option>
+          <option value="Contract">Contract</option>
+          <option value="Product">Product</option>
+          <option value="Representation">Representation</option>
+        </optgroup>
+        <optgroup label="Motivation">
+          <option value="Assessment">Assessment</option>
+          <option value="Constraint">Constraint</option>
+          <option value="Driver">Driver</option>
+          <option value="Goal">Goal</option>
+          <option value="Meaning">Meaning</option>
+          <option value="Outcome">Outcome</option>
+          <option value="Principle">Principle</option>
+          <option value="Requirement">Requirement</option>
+          <option value="Stakeholder">Stakeholder</option>
+          <option value="Value">Value</option>
+        </optgroup>
+        <optgroup label="Physical">
+          <option value="DistributionNetwork">Distribution Network</option>
+          <option value="Equipment">Equipment</option>
+          <option value="Facility">Facility</option>
+          <option value="Material">Material</option>
+        </optgroup>
+        <optgroup label="Strategy">
+          <option value="Capability">Capability</option>
+          <option value="CourseOfAction">Course of Action</option>
+          <option value="Resource">Resource</option>
+          <option value="ValueStream">Value Stream</option>
+        </optgroup>
+        <optgroup label="Technology">
+          <option value="Artifact">Artifact</option>
+          <option value="CommunicationNetwork">Communication Network</option>
+          <option value="Device">Device</option>
+          <option value="Node">Node</option>
+          <option value="Path">Path</option>
+          <option value="SystemSoftware">System Software</option>
+          <option value="TechnologyCollaboration">Technology Collaboration</option>
+          <option value="TechnologyEvent">Technology Event</option>
+          <option value="TechnologyFunction">Technology Function</option>
+          <option value="TechnologyInteraction">Technology Interaction</option>
+          <option value="TechnologyInterface">Technology Interface</option>
+          <option value="TechnologyProcess">Technology Process</option>
+          <option value="TechnologyService">Technology Service</option>
+        </optgroup>
+        <optgroup label="Implement. &amp; Migr.">
+          <option value="Deliverable">Deliverable</option>
+          <option value="Gap">Gap</option>
+          <option value="ImplementationEvent">Implementation Event</option>
+          <option value="Plateau">Plateau</option>
+          <option value="WorkPackage">WorkPackage</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option value="Grouping">Grouping</option>
+          <option value="AndJunction">Junction - And</option>
+          <option value="OrJunction">Junction - Or</option>
+          <option value="Location">Location</option>
+        </optgroup>
+      </select>
+    </div>
+    <div id="nodeStatusFilter-container" class="filter-container filter-hidden">
+      <select id="nodeStatusFilter" multiple></select>
+    </div>
+    <div id="linkTypeFilter-container" class="filter-container filter-hidden">
+      <select id="linkTypeFilter" multiple>
+        <option value="Access">Access</option>
+        <option value="Aggregation">Aggregation</option>
+        <option value="Assignment">Assignment</option>
+        <option value="Association">Association</option>
+        <option value="Composition">Composition</option>
+        <option value="Flow">Flow</option>
+        <option value="Influence">Influence</option>
+        <option value="Realization">Realization</option>
+        <option value="Serving">Serving</option>
+        <option value="Specialization">Specialization</option>
+        <option value="Triggering">Triggering</option>
+      </select>
+    </div>
+    <div id="depthFilter-container" class="filter-container filter-hidden">
+      <select id="depthFilter"></select>
+    </div>
+    <div id="unlinkedNodesFilter-container" class="filter-container filter-hidden">
+      <input id="unlinkedNodesFilter" type="checkbox" class="filter-checkbox">
+      <label for="unlinkedNodesFilter" class="filter-checkbox-label">Unrelated Elements</label>
+    </div>
+  </div>
+  
+  <div id="loading-message">Loading...</div>
+
+  <div id="search-result-summary"></div>
+
+  <script src="libs/autoComplete.min.js"></script>
+  <script src="libs/tail.select-full.min.js"></script>
+  <script src="libs/d3.v7.min.js"></script>
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>

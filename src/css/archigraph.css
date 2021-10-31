@@ -1,0 +1,192 @@
+BODY {
+    margin: 0;
+    font-family: Tahoma, Verdana, Geneva, sans-serif;
+    font-size: 9pt;
+    background-color: #fff;
+}
+
+header {
+    background-color: #444;
+    color: #fff;
+    height: 2.4em;
+}
+H1 {
+    margin: 0;
+    font-size: 120%;
+    display: inline-block;
+    padding: 0.4em 0.4em 0.4em 0.6em;
+}
+#header-logo {
+    float: left;    
+    height: 2.1em;
+    width: 1.8em;
+    padding: 0.3em 0 0 0.25em;
+    background-color: #0088ff;
+}
+#header-logo svg g {
+    fill: #0088ff;
+    stroke: #eee;
+    stroke-width: 1.4;
+}
+#header-right {
+    float: right;
+    padding: 0.3em;
+}
+.header-action {
+    float: right;
+    margin: 0 0.3em;
+}
+
+#loading-message {
+    position: absolute; 
+    top: 50%;
+    left: calc(50% - 2rem);
+    font-size: 140%;
+}
+
+#search-result-summary {
+    position: absolute;
+    bottom: 0;
+    left: 6px;
+    line-height: 2em;
+    color: #aaa;
+    font-size: 90%;
+}
+
+#dialog-overview {
+    background-color: #fff;
+    color: #666;
+    text-align: left;
+    border: none;
+    padding: 0.6rem 1.6rem;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1), 0 0 10px rgba(0,0,0,0.25);
+    max-width: 80vw;
+}
+dialog::backdrop {
+    background: rgba(100,100,100,.5);
+}
+dialog .dialog-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 2em 0 0.5em 0;
+}
+dialog .dialog-buttons button {
+    background-color: #666; 
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+#dialog-overview-close-x {
+    float: right;
+    font-weight: bold;
+    color: #bbb;
+    font-size: 120%;
+    margin-top: 0.4em;
+    cursor: pointer;
+}
+
+
+#filter-bar {
+    position: fixed;
+    margin: 8px;
+}
+.filter-hidden {
+    display: none!important;
+}
+.filter-container {
+    display: block;
+    margin: 0.3em;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.filter-checkbox {
+    transform: scale(1.3);
+}
+.filter-checkbox-label {
+    white-space: nowrap;
+}
+
+#links line {
+    stroke: #666;
+    stroke-width: 1px;
+}
+.relationship-arrow-open,
+.relationship-arrow-closed,
+.relationship-arrowlarge-open,
+.relationship-diamond-open,
+.relationship-diamond-closed,
+.relationship-circle-closed {
+    stroke:#666;
+    stroke-width: 1.8px;
+    fill: none;
+}
+.relationship-arrow-closed,
+.relationship-diamond-closed,
+.relationship-circle-closed {
+    fill: #666;
+}      
+.relationship-arrowlarge-open,
+.relationship-diamond-open {
+    fill: #fff;
+}
+.relationship-access,
+.relationship-realization {
+    stroke-dasharray: 3;
+}
+.relationship-influence,
+.relationship-flow {
+    stroke-dasharray: 8, 4;
+}
+
+#nodes g circle {
+    stroke: #666;
+    stroke-width: 0.8px;
+}
+.node-fixed circle {
+    stroke-width: 2px!important;
+}
+.node-root circle {
+    stroke-width: 3px!important;
+}
+.node-icon {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1;
+}
+.element-plateau > .node-icon {
+    stroke-width: 1.4;
+}
+.element-andjunction > .node-icon {
+    fill: #666;
+}
+.node-label-type {
+    font-size: 6pt;
+}
+.node-label-name {
+    font-size: 7pt;
+}
+.element-grouping circle {    
+    stroke-dasharray: 4, 2;
+}
+
+
+@media only screen and (min-width: 600px) {
+    .filter-container {
+        display: inline-block;
+    }
+    .filter-checkbox {
+        position: relative;
+        top: -3px;
+    }
+    .filter-checkbox-label {
+        position: relative;
+        top: -5px;
+    }
+
+    #dialog-overview {
+        max-width: 560px;
+    }
+}

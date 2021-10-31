@@ -1,0 +1,93 @@
+.autoComplete_wrapper {
+  display: inline-block;
+  position: relative;    
+  top: -6px;
+  margin-bottom: -6px;
+}
+
+.autoComplete_wrapper > input {
+  line-height: 21px;
+  width: 250px;
+  margin: 1px;
+  padding: 5px 5px 5px 26px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  color: rgba(48, 52, 56, 0.85);
+  outline: none;
+  border-radius: 3px;
+  border: 0 solid #d9d9d9;
+  box-shadow: 0 1px 1px 1px rgb(0 0 0 / 10%), 0 0 1px 1px rgb(0 0 0 / 25%);
+  background-image: 
+  url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMicgd2lkdGg9JzE0JyBoZWlnaHQ9JzE0JyBmaWxsPSdub25lJyBzdHJva2U9JyM0NDQnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcgc3Ryb2tlLWxpbmVqb2luPSdyb3VuZCcgc3Ryb2tlLXdpZHRoPSczJz48Y2lyY2xlIGN4PScxNCcgY3k9JzE0JyByPScxMicgLz48cGF0aCBkPSdNMjMgMjMgTDMwIDMwJyAvPjwvc3ZnPg==");
+  background-size: 0.8rem;
+  background-position: left 0.4rem top 0.5rem;
+  background-repeat: no-repeat;
+  background-origin: border-box;    
+  background-color: #fff;
+} 
+
+.autoComplete_wrapper > input::placeholder {  
+  color: rgba(48, 52, 56, 0.85);
+}
+
+.autoComplete_wrapper > input::-webkit-search-cancel-button {
+  position: relative;
+  margin-left: 6px;
+  color: #444;
+}
+
+.autoComplete_wrapper > ul {
+  position: absolute;
+  max-height: 226px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  left: 0;
+  right: 0;
+  margin: 0.1rem 0 0 0;
+  padding: 0;
+  z-index: 1000;
+  list-style: none;
+  border-radius: 3px;
+  background-color: #fff;
+  border: 1px solid rgba(33, 33, 33, 0.25);
+  box-shadow: 0 3px 6px rgba(149, 157, 165, 0.5);
+  outline: none;
+}
+
+.autoComplete_wrapper > ul[hidden],
+.autoComplete_wrapper > ul:empty {
+  display: block;
+  opacity: 0;
+  transform: scale(0);
+}
+
+.autoComplete_wrapper > ul > li {
+  padding: 0.5rem 0.5rem;
+  text-align: left;
+  font-size: 12px;
+  color: #303438;
+  background-color: rgba(255, 255, 255, 1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.2s ease;
+}
+
+.autoComplete_wrapper > ul > li mark {
+  background-color: transparent;
+  color: rgba(122, 122, 122, 1);
+  font-weight: bold;
+}
+
+.autoComplete_wrapper > ul > li:hover {
+  cursor: pointer;
+  background-color: rgba(122, 122, 122, 0.15);
+}
+
+.autoComplete_wrapper > ul > li[aria-selected="true"] {
+  background-color: rgba(122, 122, 122, 0.15);
+}
+  
