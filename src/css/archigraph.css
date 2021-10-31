@@ -53,7 +53,8 @@ H1 {
     font-size: 90%;
 }
 
-#dialog-overview {
+#dialog-overview,
+#dialog-settings {
     background-color: #fff;
     color: #666;
     text-align: left;
@@ -80,7 +81,7 @@ dialog .dialog-buttons button {
     display: inline-block;
     font-size: 14px;
 }
-#dialog-overview-close-x {
+.dialog-close-x {
     float: right;
     font-weight: bold;
     color: #bbb;
@@ -89,6 +90,27 @@ dialog .dialog-buttons button {
     cursor: pointer;
 }
 
+#modelLoad-dragdrop-zone {
+    width: 24em;
+    height: 4.6em;
+    border: 2px dashed #888;
+    background-color: #eee;
+    padding: 1em 2em;
+    margin: 0 auto;
+}
+#modelLoad-dragdrop-zone p {
+    color: #999;
+    font-weight: bold;
+    text-align: center;
+}
+#modelLoad-dragdrop-zone:hover {
+    border-width: 3px;
+}
+#modelLoad-dragdrop-message {
+    margin: 0.5em 0 1.2em 0;
+    color: rgb(0, 116, 0);
+    font-weight: bold;
+}
 
 #filter-bar {
     position: fixed;

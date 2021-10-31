@@ -146,7 +146,8 @@ const exportForTesting = {
 
 export { 
     requestDataFromServer, 
-    requestDataFromStore, 
+    requestDataFromStore,
+    processExchangeFormatFile, 
     modelOverview, 
     exportForTesting 
 }; 

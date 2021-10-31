@@ -74,6 +74,7 @@ const debounce = (callback, wait) => {
 const requestModelData = (callback) => {
     dataAccess.requestDataFromServer(settings.modelPath, callback);
 }
+
 const modelOverviewOpen = () => {
     const modelOverview = dataAccess.modelOverview();
 
@@ -85,6 +86,37 @@ const modelOverviewOpen = () => {
 const modelOverviewClose = () => {
     document.getElementById("dialog-overview").close();
 }
+
+const settingsOpen = () => {
+    document.getElementById("dialog-settings").showModal();
+}
+const settingsClose = () => {    
+    document.getElementById("dialog-settings").close();
+    document.getElementById('modelLoad-dragdrop-message').innerText = "";
+}
+const loadModelFile = (e) => {
+    const droppedFiles = e.dataTransfer.files;
+    if (droppedFiles.length > 1) {
+        alert("Oops, only one file can be loaded!");
+        return;
+    }    
+    const droppedFile = e.dataTransfer.files[0];
+    if (!droppedFile.name.endsWith('.xml') || !droppedFile.type.match('^text/xml')) {        
+        alert("Oops, it must be and XML file! Please ensure it is an ArchiMate Exchange Format file.");
+        return;
+    }
+    const msg = document.getElementById('modelLoad-dragdrop-message');
+    msg.innerText = `Loading: ${droppedFile.name}`;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        dataAccess.processExchangeFormatFile(e.target.result);
+        msg.innerText = `The ${droppedFile.name} file has been loaded into your browser's session storage.`;
+        filterSearch();
+    };
+    reader.readAsText(droppedFile);
+}
+
 const setupHeader = () => {
     if (querystringParameters.get('showheader')) {
         if (querystringParameters.get('showheader') === "true")
@@ -92,11 +124,16 @@ const setupHeader = () => {
     } else if (settings.header_Enabled) {
         document.querySelector("header").style.display = "block";
     }
+
+    if (settings.dragDropModel_Enabled) {
+        document.getElementById("action-settings").style.display = "block";
+    }
 }
 
 document.getElementById("action-reload").addEventListener("click", function (e) {    
     requestModelData(modelLoaded);
 });
+
 document.getElementById("action-model-overview").addEventListener("click", function (e) {    
     modelOverviewOpen();
 });
@@ -105,6 +142,23 @@ document.getElementById("dialog-overview-close").addEventListener("click", funct
 });
 document.getElementById("dialog-overview-close-x").addEventListener("click", function (e) {    
     modelOverviewClose();
+});
+
+document.getElementById("action-settings").addEventListener("click", function (e) {    
+    settingsOpen();
+});
+document.getElementById("dialog-settings-close").addEventListener("click", function (e) {    
+    settingsClose();
+});
+document.getElementById("dialog-settings-close-x").addEventListener("click", function (e) {    
+    settingsClose();
+});
+document.getElementById("modelLoad-dragdrop-zone").addEventListener("dragover", function (e) {    
+    e.preventDefault();
+});
+document.getElementById("modelLoad-dragdrop-zone").addEventListener("drop", function (e) { 
+    e.preventDefault();
+    loadModelFile(e);
 });
 
 window.onload = (event) => {

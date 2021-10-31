@@ -38,11 +38,19 @@
           </g>
         </svg>
       </div>
+      <div id="action-settings" class="header-action" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <g fill="#eee">
+            <title>settings</title>
+            <path d="M 12 4 A 1 1 0 0 0 12 16 A 1 1 0 0 0 12 4 V 6 A 1 1 0 0 1 12 14 A 1 1 0 0 1 12 6 Z M 11 2 h 2 v 2 h -2 z M 11 18 h 2 v -2 h -2 z M 4 11 v -2 h 2 v 2 z M 20 9 v 2 h -2 v -2 z M 16.75 3.75 l 1.5 1.5 l -1.25 1.25 l -1.5 -1.5 z M 16.75 16.25 l 1.5 -1.5 l -1.25 -1.25 l -1.5 1.5 z M 7.25 16.25 l -1.5 -1.5 l 1.25 -1.25 l 1.5 1.5 z m 0 -12.5 l -1.5 1.5 l 1.25 1.25 l 1.5 -1.5 Z"/>
+          </g>
+        </svg>
+      </div>
     </div>
   </header>
 
   <dialog id="dialog-overview">
-    <div id="dialog-overview-close-x">X</div>
+    <div id="dialog-overview-close-x" class="dialog-close-x">X</div>
     <h3>ArchiMate Model</h3>
     <h4 id="model-name"></h4>
     <div id="model-documentation"></div>
@@ -77,6 +85,22 @@
     </div>
     <div class="dialog-buttons">
       <button id="dialog-overview-close" class="dialog-button">Close</button>
+    </div>
+  </dialog>
+
+  <dialog id="dialog-settings">
+    <div id="dialog-settings-close-x" class="dialog-close-x">X</div>
+    <h3>Settings</h3>
+
+    <h4>Load an ArchiMate Model</h4>
+    <p>It will <em>not</em> be uploaded anywhere, it will only be loaded into your web browser's session storage.</p>
+    <div id="modelLoad-dragdrop-message"></div>
+    <div id="modelLoad-dragdrop-zone">
+      <p>Drag &amp; Drop an ArchiMate Exchange Format file here ...</p>
+    </div>
+
+    <div class="dialog-buttons">
+      <button id="dialog-settings-close" class="dialog-button">Close</button>
     </div>
   </dialog>
 

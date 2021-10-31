@@ -25,6 +25,11 @@ A dragged node sticks in place, it can be released by clicking on it
 */
 export const stickyNodes_Enabled = true;
 
+/*
+Drag n drop a model feature switch
+*/
+export const dragDropModel_Enabled = false;
+
 
 /*
 Root node search filter
