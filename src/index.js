@@ -3,6 +3,7 @@ import * as graphDataSearch from './components/graphDataSearch.js';
 import * as filterBar from './components/filterBar.js';
 import * as graphExplorer from './components/graphExplorer.js';
 import * as settings from './settings.js';
+import * as userPreferences from './components/userPreferences.js';
 
 let querystringParameters = new URLSearchParams(window.location.search);
 
@@ -87,12 +88,18 @@ const modelOverviewClose = () => {
     document.getElementById("dialog-overview").close();
 }
 
-const settingsOpen = () => {
-    document.getElementById("dialog-settings").showModal();
+const userSettingsOpen = () => {
+    const userPrefs = userPreferences.getPreferences();
+    if (userPrefs.userLoadedModel) {
+        const msg = document.getElementById('modelLoad-dragDrop-message');
+        msg.innerText = `Current loaded model: ${userPrefs.userLoadedModelFilename}`;
+    }
+    
+    document.getElementById("dialog-userSettings").showModal();
 }
-const settingsClose = () => {    
-    document.getElementById("dialog-settings").close();
-    document.getElementById('modelLoad-dragdrop-message').innerText = "";
+const userSettingsClose = () => {    
+    document.getElementById("dialog-userSettings").close();
+    document.getElementById('modelLoad-dragDrop-message').innerText = "";
 }
 const loadModelFile = (e) => {
     const droppedFiles = e.dataTransfer.files;
@@ -105,12 +112,16 @@ const loadModelFile = (e) => {
         alert("Oops, it must be and XML file! Please ensure it is an ArchiMate Exchange Format file.");
         return;
     }
-    const msg = document.getElementById('modelLoad-dragdrop-message');
+    const msg = document.getElementById('modelLoad-dragDrop-message');
     msg.innerText = `Loading: ${droppedFile.name}`;
 
     const reader = new FileReader();
     reader.onload = (e) => {
         dataAccess.processExchangeFormatFile(e.target.result);
+
+        userPreferences.updatePreference("userLoadedModel", true);
+        userPreferences.updatePreference("userLoadedModelFilename", droppedFile.name);
+
         msg.innerText = `The ${droppedFile.name} file has been loaded into your browser's session storage.`;
         filterSearch();
     };
@@ -126,7 +137,7 @@ const setupHeader = () => {
     }
 
     if (settings.dragDropModel_Enabled) {
-        document.getElementById("action-settings").style.display = "block";
+        document.getElementById("action-userSettings").style.display = "block";
     }
 }
 
@@ -144,19 +155,19 @@ document.getElementById("dialog-overview-close-x").addEventListener("click", fun
     modelOverviewClose();
 });
 
-document.getElementById("action-settings").addEventListener("click", function (e) {    
-    settingsOpen();
+document.getElementById("action-userSettings").addEventListener("click", function (e) {    
+    userSettingsOpen();
 });
-document.getElementById("dialog-settings-close").addEventListener("click", function (e) {    
-    settingsClose();
+document.getElementById("dialog-userSettings-close").addEventListener("click", function (e) {    
+    userSettingsClose();
 });
-document.getElementById("dialog-settings-close-x").addEventListener("click", function (e) {    
-    settingsClose();
+document.getElementById("dialog-userSettings-close-x").addEventListener("click", function (e) {    
+    userSettingsClose();
 });
-document.getElementById("modelLoad-dragdrop-zone").addEventListener("dragover", function (e) {    
+document.getElementById("modelLoad-dragDrop-zone").addEventListener("dragover", function (e) {    
     e.preventDefault();
 });
-document.getElementById("modelLoad-dragdrop-zone").addEventListener("drop", function (e) { 
+document.getElementById("modelLoad-dragDrop-zone").addEventListener("drop", function (e) { 
     e.preventDefault();
     loadModelFile(e);
 });

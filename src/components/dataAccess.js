@@ -1,3 +1,4 @@
+import * as userPreferences from './userPreferences.js';
 
 const graphDataStoreKey = "archiGraphDataStore";
 
@@ -134,7 +135,11 @@ const convertXmlToJson = (xmlString) => {
 }
 
 const processExchangeFormatFile = (xmlString) => {
-    const jsonGraph = convertXmlToJson(xmlString);        
+    const jsonGraph = convertXmlToJson(xmlString);
+    
+    userPreferences.updatePreference("userLoadedModel", false);
+    userPreferences.updatePreference("userLoadedModelFilename", "");
+
     sessionStorage.setItem(graphDataStoreKey, JSON.stringify(jsonGraph));
 }
 

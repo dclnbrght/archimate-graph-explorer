@@ -54,7 +54,7 @@ H1 {
 }
 
 #dialog-overview,
-#dialog-settings {
+#dialog-userSettings {
     background-color: #fff;
     color: #666;
     text-align: left;
@@ -90,7 +90,7 @@ dialog .dialog-buttons button {
     cursor: pointer;
 }
 
-#modelLoad-dragdrop-zone {
+#modelLoad-dragDrop-zone {
     width: 24em;
     height: 4.6em;
     border: 2px dashed #888;
@@ -98,15 +98,15 @@ dialog .dialog-buttons button {
     padding: 1em 2em;
     margin: 0 auto;
 }
-#modelLoad-dragdrop-zone p {
+#modelLoad-dragDrop-zone p {
     color: #999;
     font-weight: bold;
     text-align: center;
 }
-#modelLoad-dragdrop-zone:hover {
+#modelLoad-dragDrop-zone:hover {
     border-width: 3px;
 }
-#modelLoad-dragdrop-message {
+#modelLoad-dragDrop-message {
     margin: 0.5em 0 1.2em 0;
     color: rgb(0, 116, 0);
     font-weight: bold;
@@ -208,7 +208,8 @@ dialog .dialog-buttons button {
         top: -5px;
     }
 
-    #dialog-overview {
+    #dialog-overview,
+    #dialog-userSettings {
         max-width: 560px;
     }
 }

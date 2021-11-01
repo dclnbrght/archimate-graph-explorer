@@ -28,7 +28,7 @@ export const stickyNodes_Enabled = true;
 /*
 Drag n drop a model feature switch
 */
-export const dragDropModel_Enabled = false;
+export const dragDropModel_Enabled = true;
 
 
 /*
