@@ -30,12 +30,10 @@ Drag n drop a model feature switch
 */
 export const dragDropModel_Enabled = true;
 
-
 /*
 Root node search filter
 */
 export const rootNodeSearchFilter_Enabled = true;
-
 
 /*
 Filter values

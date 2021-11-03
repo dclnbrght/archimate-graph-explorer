@@ -66,16 +66,17 @@ H1 {
 dialog::backdrop {
     background: rgba(100,100,100,.5);
 }
-dialog .dialog-buttons {
+.dialog-button-container {
     display: flex;
     justify-content: space-around;
-    margin: 2em 0 0.5em 0;
+    margin: 1em 0;
 }
-dialog .dialog-buttons button {
+.dialog-button,
+.userSetting-button {
     background-color: #666; 
     border: none;
     color: white;
-    padding: 8px 16px;
+    padding: 0.5em 1em;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -90,24 +91,24 @@ dialog .dialog-buttons button {
     cursor: pointer;
 }
 
-#modelLoad-dragDrop-zone {
+#userModelLoad-dragDrop-zone {
     width: 24em;
     height: 4.6em;
     border: 2px dashed #888;
     background-color: #eee;
     padding: 1em 2em;
-    margin: 0 auto;
+    margin: 1em auto;
 }
-#modelLoad-dragDrop-zone p {
+#userModelLoad-dragDrop-zone p {
     color: #999;
     font-weight: bold;
     text-align: center;
 }
-#modelLoad-dragDrop-zone:hover {
+#userModelLoad-dragDrop-zone:hover {
     border-width: 3px;
 }
-#modelLoad-dragDrop-message {
-    margin: 0.5em 0 1.2em 0;
+#userModelLoad-dragDrop-message {
+    margin: 0.5em 0;
     color: rgb(0, 116, 0);
     font-weight: bold;
 }
@@ -194,6 +195,9 @@ dialog .dialog-buttons button {
     stroke-dasharray: 4, 2;
 }
 
+.hidden {
+    display: none;
+}
 
 @media only screen and (min-width: 600px) {
     .filter-container {

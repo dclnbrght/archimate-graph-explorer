@@ -31,6 +31,12 @@ const requestDataFromStore = () => {
     }
 }
 
+const deleteDataFromStore = () => {
+    if (sessionStorage.getItem(graphDataStoreKey) !== null) {
+        sessionStorage.removeItem(graphDataStoreKey);
+    }
+}
+
 const modelOverview = () => {
     const graph = requestDataFromStore();
 
@@ -152,6 +158,7 @@ const exportForTesting = {
 export { 
     requestDataFromServer, 
     requestDataFromStore,
+    deleteDataFromStore,
     processExchangeFormatFile, 
     modelOverview, 
     exportForTesting 

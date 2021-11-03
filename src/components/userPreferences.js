@@ -16,6 +16,11 @@ const getPreferences = () => {
     return userPrefs;
 }
 
+const getPreference = (key) => {    
+    let userPrefs = getPreferences();
+    return userPrefs[key];
+}
+
 const updatePreference = (preference, value) => {
     let userPrefs = getPreferences();
     userPrefs[preference] = value;
@@ -24,5 +29,6 @@ const updatePreference = (preference, value) => {
 
 export { 
     updatePreference,
-    getPreferences
+    getPreferences,
+    getPreference
 };

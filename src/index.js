@@ -91,17 +91,18 @@ const modelOverviewClose = () => {
 const userSettingsOpen = () => {
     const userPrefs = userPreferences.getPreferences();
     if (userPrefs.userLoadedModel) {
-        const msg = document.getElementById('modelLoad-dragDrop-message');
+        const msg = document.getElementById('userModelLoad-dragDrop-message');
         msg.innerText = `Current loaded model: ${userPrefs.userLoadedModelFilename}`;
+        document.getElementById('userModelLoad-delete').classList.remove('hidden');
     }
     
     document.getElementById("dialog-userSettings").showModal();
 }
 const userSettingsClose = () => {    
     document.getElementById("dialog-userSettings").close();
-    document.getElementById('modelLoad-dragDrop-message').innerText = "";
+    document.getElementById('userModelLoad-dragDrop-message').innerText = "";
 }
-const loadModelFile = (e) => {
+const userModelFileLoad = (e) => {
     const droppedFiles = e.dataTransfer.files;
     if (droppedFiles.length > 1) {
         alert("Oops, only one file can be loaded!");
@@ -112,7 +113,7 @@ const loadModelFile = (e) => {
         alert("Oops, it must be and XML file! Please ensure it is an ArchiMate Exchange Format file.");
         return;
     }
-    const msg = document.getElementById('modelLoad-dragDrop-message');
+    const msg = document.getElementById('userModelLoad-dragDrop-message');
     msg.innerText = `Loading: ${droppedFile.name}`;
 
     const reader = new FileReader();
@@ -122,10 +123,28 @@ const loadModelFile = (e) => {
         userPreferences.updatePreference("userLoadedModel", true);
         userPreferences.updatePreference("userLoadedModelFilename", droppedFile.name);
 
+        document.getElementById('userModelLoad-delete').classList.remove('hidden');
+
         msg.innerText = `The ${droppedFile.name} file has been loaded into your browser's session storage.`;
-        filterSearch();
+        modelLoaded();
     };
     reader.readAsText(droppedFile);
+}
+const userModelFileDelete = () => {
+    const userLoadedModelFilename = userPreferences.getPreference('userLoadedModelFilename');
+
+    dataAccess.deleteDataFromStore();
+    
+    const msg = document.getElementById('userModelLoad-dragDrop-message');
+    msg.innerText = `${userLoadedModelFilename} has been deleted`;
+
+    userPreferences.updatePreference("userLoadedModel", false);
+    userPreferences.updatePreference("userLoadedModelFilename", "");
+
+    document.getElementById('userModelLoad-delete').classList.add('hidden');
+    
+    // request default model from server
+    requestModelData(modelLoaded);
 }
 
 const setupHeader = () => {
@@ -141,43 +160,46 @@ const setupHeader = () => {
     }
 }
 
-document.getElementById("action-reload").addEventListener("click", function (e) {    
+document.getElementById("action-reload").addEventListener("click", function (e) {
     requestModelData(modelLoaded);
 });
 
 document.getElementById("action-model-overview").addEventListener("click", function (e) {    
     modelOverviewOpen();
 });
-document.getElementById("dialog-overview-close").addEventListener("click", function (e) {    
+document.getElementById("dialog-overview-close").addEventListener("click", function (e) {
     modelOverviewClose();
 });
-document.getElementById("dialog-overview-close-x").addEventListener("click", function (e) {    
+document.getElementById("dialog-overview-close-x").addEventListener("click", function (e) {
     modelOverviewClose();
 });
 
-document.getElementById("action-userSettings").addEventListener("click", function (e) {    
+document.getElementById("action-userSettings").addEventListener("click", function (e) {
     userSettingsOpen();
 });
-document.getElementById("dialog-userSettings-close").addEventListener("click", function (e) {    
+document.getElementById("dialog-userSettings-close").addEventListener("click", function (e) {
     userSettingsClose();
 });
-document.getElementById("dialog-userSettings-close-x").addEventListener("click", function (e) {    
+document.getElementById("dialog-userSettings-close-x").addEventListener("click", function (e) {
     userSettingsClose();
 });
-document.getElementById("modelLoad-dragDrop-zone").addEventListener("dragover", function (e) {    
+document.getElementById("userModelLoad-dragDrop-zone").addEventListener("dragover", function (e) {
     e.preventDefault();
 });
-document.getElementById("modelLoad-dragDrop-zone").addEventListener("drop", function (e) { 
+document.getElementById("userModelLoad-dragDrop-zone").addEventListener("drop", function (e) { 
     e.preventDefault();
-    loadModelFile(e);
+    userModelFileLoad(e);
+});
+document.getElementById("userModelLoad-delete").addEventListener("click", function (e) {
+    userModelFileDelete();
 });
 
-window.onload = (event) => {
+window.onload = () => {
     setupHeader();
     filterBar.setupFilters(filterSearch);
     requestModelData(modelLoaded);
 };
-window.onresize = debounce((event) => {
+window.onresize = debounce(() => {
     filterSearch();
 }, 100);
 window.onpopstate = () => { 
