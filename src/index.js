@@ -3,12 +3,13 @@ import * as graphDataSearch from './components/graphDataSearch.js';
 import * as filterBar from './components/filterBar.js';
 import * as graphExplorer from './components/graphExplorer.js';
 import * as settings from './settings.js';
-import * as userPreferences from './components/userPreferences.js';
+import * as userSettings from './components/userSettings.js';
+import * as userModel from './components/userModel.js';
 
 let querystringParameters = new URLSearchParams(window.location.search);
 
 const modelLoaded = () => {
-    try {  
+    try {
         const graphData = dataAccess.requestDataFromStore();
         filterBar.setupRootNodeSearchFilter(graphData.nodes, filterSearch);
 
@@ -88,65 +89,6 @@ const modelOverviewClose = () => {
     document.getElementById("dialog-overview").close();
 }
 
-const userSettingsOpen = () => {
-    const userPrefs = userPreferences.getPreferences();
-    if (userPrefs.userLoadedModel) {
-        const msg = document.getElementById('userModelLoad-dragDrop-message');
-        msg.innerText = `Current loaded model: ${userPrefs.userLoadedModelFilename}`;
-        document.getElementById('userModelLoad-delete').classList.remove('hidden');
-    }
-    
-    document.getElementById("dialog-userSettings").showModal();
-}
-const userSettingsClose = () => {    
-    document.getElementById("dialog-userSettings").close();
-    document.getElementById('userModelLoad-dragDrop-message').innerText = "";
-}
-const userModelFileLoad = (e) => {
-    const droppedFiles = e.dataTransfer.files;
-    if (droppedFiles.length > 1) {
-        alert("Oops, only one file can be loaded!");
-        return;
-    }    
-    const droppedFile = e.dataTransfer.files[0];
-    if (!droppedFile.name.endsWith('.xml') || !droppedFile.type.match('^text/xml')) {        
-        alert("Oops, it must be and XML file! Please ensure it is an ArchiMate Exchange Format file.");
-        return;
-    }
-    const msg = document.getElementById('userModelLoad-dragDrop-message');
-    msg.innerText = `Loading: ${droppedFile.name}`;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        dataAccess.processExchangeFormatFile(e.target.result);
-
-        userPreferences.updatePreference("userLoadedModel", true);
-        userPreferences.updatePreference("userLoadedModelFilename", droppedFile.name);
-
-        document.getElementById('userModelLoad-delete').classList.remove('hidden');
-
-        msg.innerText = `The ${droppedFile.name} file has been loaded into your browser's session storage.`;
-        modelLoaded();
-    };
-    reader.readAsText(droppedFile);
-}
-const userModelFileDelete = () => {
-    const userLoadedModelFilename = userPreferences.getPreference('userLoadedModelFilename');
-
-    dataAccess.deleteDataFromStore();
-    
-    const msg = document.getElementById('userModelLoad-dragDrop-message');
-    msg.innerText = `${userLoadedModelFilename} has been deleted`;
-
-    userPreferences.updatePreference("userLoadedModel", false);
-    userPreferences.updatePreference("userLoadedModelFilename", "");
-
-    document.getElementById('userModelLoad-delete').classList.add('hidden');
-    
-    // request default model from server
-    requestModelData(modelLoaded);
-}
-
 const setupHeader = () => {
     if (querystringParameters.get('showheader')) {
         if (querystringParameters.get('showheader') === "true")
@@ -155,8 +97,12 @@ const setupHeader = () => {
         document.querySelector("header").style.display = "block";
     }
 
+    if (settings.userSettings_Enabled) {
+        document.getElementById("action-userSettings").classList.remove('hidden');
+    }
+
     if (settings.dragDropModel_Enabled) {
-        document.getElementById("action-userSettings").style.display = "block";
+        document.getElementById("userSettings-userModelLoad").classList.remove('hidden');
     }
 }
 
@@ -175,29 +121,42 @@ document.getElementById("dialog-overview-close-x").addEventListener("click", fun
 });
 
 document.getElementById("action-userSettings").addEventListener("click", function (e) {
-    userSettingsOpen();
+    userSettings.settingsDialogOpen();
 });
 document.getElementById("dialog-userSettings-close").addEventListener("click", function (e) {
-    userSettingsClose();
+    userSettings.settingsDialogClose();
 });
 document.getElementById("dialog-userSettings-close-x").addEventListener("click", function (e) {
-    userSettingsClose();
+    userSettings.settingsDialogClose();
 });
+
 document.getElementById("userModelLoad-dragDrop-zone").addEventListener("dragover", function (e) {
     e.preventDefault();
 });
 document.getElementById("userModelLoad-dragDrop-zone").addEventListener("drop", function (e) { 
     e.preventDefault();
-    userModelFileLoad(e);
+    userModel.modelFileLoad(e, modelLoaded);
 });
 document.getElementById("userModelLoad-delete").addEventListener("click", function (e) {
-    userModelFileDelete();
+    userModel.modelFileDelete();    
+    // request default model from server
+    requestModelData(modelLoaded);
 });
 
 window.onload = () => {
     setupHeader();
     filterBar.setupFilters(filterSearch);
-    requestModelData(modelLoaded);
+    
+    if (!dataAccess.dataExistsInStore())
+    {
+        userSettings.updateSetting("userLoadedModel", false);
+        userSettings.updateSetting("userLoadedModelFilename", "");
+    }
+    
+    if (!userSettings.getSetting('userLoadedModel'))
+        requestModelData(modelLoaded);
+    else 
+        modelLoaded();
 };
 window.onresize = debounce(() => {
     filterSearch();

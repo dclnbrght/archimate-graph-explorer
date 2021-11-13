@@ -26,7 +26,12 @@ A dragged node sticks in place, it can be released by clicking on it
 export const stickyNodes_Enabled = true;
 
 /*
-Drag n drop a model feature switch
+User settings feature switch
+*/
+export const userSettings_Enabled = true;
+
+/*
+Drag n drop to load a model feature switch
 */
 export const dragDropModel_Enabled = true;
 

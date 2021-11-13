@@ -38,7 +38,7 @@
           </g>
         </svg>
       </div>
-      <div id="action-userSettings" class="header-action" style="display: none;">
+      <div id="action-userSettings" class="header-action hidden">
         <svg width="20" height="20" viewBox="0 0 20 20">
           <g fill="#eee">
             <title>settings</title>
@@ -92,9 +92,9 @@
     <div id="dialog-userSettings-close-x" class="dialog-close-x">X</div>
     <h3>User Settings</h3>
 
-    <div id="userSettings-userModelLoad" class="">
+    <div id="userSettings-userModelLoad" class="hidden">
       <h4>Load an ArchiMate Model</h4>
-      <p>Load your own ArchiMate model into the Graph Explorer by exporting it to an exchange format file, then drag and drop it below. Your model will <em>not</em> be uploaded to a remote server, it will only be loaded directly into your web browser's session storage and you can delete it at any time.</p>
+      <p>Load your own ArchiMate model into the Graph Explorer by saving it to an exchange format file, then drag and drop it below. Your model will <em>not</em> be uploaded to a remote server, it will <em>only</em> be loaded directly into your web browser's session storage. You can delete it at any time by closing your browser tab.</p>
       <div id="userModelLoad-dragDrop-message"></div>
       <div class="dialog-button-container">
         <button id="userModelLoad-delete" class="userSetting-button hidden">Delete Loaded Model</button>
