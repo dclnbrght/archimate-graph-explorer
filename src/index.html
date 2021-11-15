@@ -58,7 +58,7 @@
     <br /><hr />
 
     <h3 id="about-title">ArchiMate Graph Explorer</h3>
-    <div id="about-documentation">The ArchiMate Graph Explorer renders an interactive force directed graph from an ArchiMate Model Exchange Format file.</div>
+    <div id="about-documentation">The <a href="https://declanbright.com/archimate-graph-explorer">ArchiMate Graph Explorer</a> renders an interactive force directed graph from an ArchiMate Model Exchange Format file.</div>
     <h4>How to browse</h4>
     <div id="about-documentation">
       <ul>
@@ -74,15 +74,14 @@
     <br /><hr />
     
     <h3 id="about-title">About</h3>
-    <div id="about-documentation">Developed by: Declan Bright
-      <br />License: MIT
-      <br />3rd Party Libraries:
+    <div id="about-documentation">
       <ul style="margin-top: 0.5em;">
-        <li><a href="https://d3js.org/">d3.js</a></li>
-        <li><a href="https://github.com/wolffe/tail.select.js">tail.select.js</a></li>
-        <li><a href="https://tarekraafat.github.io/autoComplete.js/#/">autoComplete.js</a></li>
+        <li>Developed by: <a href="https://declanbright.com">Declan Bright</a></li>
+        <li>Source code: <a href="https://github.com/dclnbrght/archimate-graph-explorer">archimate-graph-explorer</a></li>
+        <li>License: MIT</li>
       </ul>
     </div>
+
     <div class="dialog-button-container">
       <button id="dialog-overview-close" class="dialog-button">Close</button>
     </div>
@@ -93,11 +92,11 @@
     <h3>User Settings</h3>
 
     <div id="userSettings-userModelLoad" class="hidden">
-      <h4>Load an ArchiMate Model</h4>
-      <p>Load your own ArchiMate model into the Graph Explorer by saving it to an exchange format file, then drag and drop it below. Your model will <em>not</em> be uploaded to a remote server, it will <em>only</em> be loaded directly into your web browser's session storage. You can delete it at any time by closing your browser tab.</p>
+      <h4>Load your ArchiMate Model</h4>
+      <p>Load your own ArchiMate model into the Graph Explorer by exporting it to an exchange format file, then drag and drop the file below. Your model will <em>not</em> be uploaded to a remote server, it will <em>only</em> be loaded directly into your web browser's session storage. You can delete it at any time by closing your browser tab.</p>
       <div id="userModelLoad-dragDrop-message"></div>
       <div class="dialog-button-container">
-        <button id="userModelLoad-delete" class="userSetting-button hidden">Delete Loaded Model</button>
+        <button id="userModelLoad-delete" class="userSetting-button hidden">Delete the Loaded Model</button>
       </div>
       <div id="userModelLoad-dragDrop-zone">
         <p>Drag &amp; Drop an ArchiMate Exchange Format file here ...</p>

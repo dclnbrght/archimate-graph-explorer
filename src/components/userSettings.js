@@ -21,9 +21,9 @@ const getSetting = (key) => {
     return userSettings[key];
 }
 
-const updateSetting = (Setting, value) => {
+const updateSetting = (key, value) => {
     let userSettings = getSettings();
-    userSettings[Setting] = value;
+    userSettings[key] = value;
     saveSettings(userSettings);
 }
 

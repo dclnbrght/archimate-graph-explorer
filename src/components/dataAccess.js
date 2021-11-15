@@ -24,7 +24,7 @@ const dataExistsInStore = () => {
 }
 
 const requestDataFromStore = () => {
-    if (sessionStorage.getItem(graphDataStoreKey) === null) {
+    if (!dataExistsInStore()) {
         alert("Ooops, that's not good, we've lost the data, please reload the app ....");
         return JSON.parse('{"nodes": [], "links": []}');
     }
