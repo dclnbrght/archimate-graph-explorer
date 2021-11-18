@@ -32,18 +32,16 @@ const breadthFirstSearch = (graphData, nodeId, depth, nodeTypes, nodeStatuses, l
                 )
 
                 // nodes associated with the links above, filtered by status & type
-                const linkedNodes = [qn.node, ...nodes.filter(n =>
+                const linkedNodes = nodes.filter(n =>
                     nodeLinks.some(nl => nl.source === n.id || nl.target === n.id)
                     && (!settings.nodeProperty_StatusFilter_Enabled
                         || nodeStatuses.includes(n.properties.status || "Current"))
                     && (nodeTypes.includes(n.type) || nodeTypes[0] === 'All')
-                    && (!visited.has(n.id))
-                )];
+                );
  
                 // links connecting the filtered nodes
-                const linkedNodesLinks = filterLinksForNodes(linkedNodes, links, linkTypes)   
-
-                // queue up the unvisited nodes
+                const linkedNodesLinks = filterLinksForNodes([qn.node, ...linkedNodes], links, linkTypes);
+                
                 linkedNodes.forEach((ln) => {
                     if (!visited.has(ln.id)) {
                         visited.add(ln.id);
@@ -51,8 +49,10 @@ const breadthFirstSearch = (graphData, nodeId, depth, nodeTypes, nodeStatuses, l
                         queue.push( { node: ln, depth: currentDepth + 1 } );
                     }
                 });
+
                 linkedNodesLinks.forEach((lnl) => {
-                    linksFiltered.push(lnl)
+                    if (!linksFiltered.some(lf => lf.id === lnl.id))
+                        linksFiltered.push(lnl)
                 });
             }
         }
