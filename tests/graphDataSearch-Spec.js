@@ -156,6 +156,30 @@ describe("graphDataSearch", function() {
                         "name": "DataObject1",
                         "documentation": "",
                         "properties": {}
+                    }, {
+                        "id": "id-OrJunction1",
+                        "type": "OrJunction",
+                        "name": "OrJunction1",
+                        "documentation": "",
+                        "properties": {}
+                    }, {
+                        "id": "id-OrJunction2",
+                        "type": "OrJunction",
+                        "name": "OrJunction2",
+                        "documentation": "",
+                        "properties": {}
+                    }, {
+                        "id": "id-Service1",
+                        "type": "ApplicationService",
+                        "name": "Service1",
+                        "documentation": "",
+                        "properties": {}
+                    }, {
+                        "id": "id-Service2",
+                        "type": "ApplicationService",
+                        "name": "Service2",
+                        "documentation": "",
+                        "properties": {}
                     }
                 ],
                 "links": [{
@@ -232,6 +256,60 @@ describe("graphDataSearch", function() {
                         "target": "id-Component3",
                         "accessType": null,
                         "properties": {}
+                    }, {
+                        "id": "id-Flow1",
+                        "type": "Flow",
+                        "name": "",
+                        "documentation": "",
+                        "source": "id-Component4",
+                        "target": "id-OrJunction1",
+                        "accessType": null,
+                        "properties": {}
+                    }, {
+                        "id": "id-Flow2",
+                        "type": "Flow",
+                        "name": "",
+                        "documentation": "",
+                        "source": "id-Component6",
+                        "target": "id-OrJunction1",
+                        "accessType": null,
+                        "properties": {}
+                    }, {
+                        "id": "id-Flow3",
+                        "type": "Flow",
+                        "name": "",
+                        "documentation": "",
+                        "source": "id-OrJunction1",
+                        "target": "id-Service1",
+                        "accessType": null,
+                        "properties": {}
+                    }, {
+                        "id": "id-Flow4",
+                        "type": "Flow",
+                        "name": "",
+                        "documentation": "",
+                        "source": "id-Component4",
+                        "target": "id-OrJunction2",
+                        "accessType": null,
+                        "properties": {}
+                    }, {
+                        "id": "id-Flow5",
+                        "type": "Flow",
+                        "name": "",
+                        "documentation": "",
+                        "source": "id-Component6",
+                        "target": "id-OrJunction2",
+                        "accessType": null,
+                        "properties": {}
+                    }, {
+                        "id": "id-Flow6",
+                        "type": "Flow",
+                        "name": "",
+                        "documentation": "",
+                        "source": "id-OrJunction2",
+                        "target": "id-Service2",
+                        "accessType": null,
+                        "properties": {}
                     }
                 ]
             }
@@ -274,6 +352,19 @@ describe("graphDataSearch", function() {
             
             expect(filteredData.nodesFiltered.length).toEqual(7);
             expect(filteredData.linksFiltered.length).toEqual(7);
+        });
+
+        it("breadthFirstSearch should filter arrays of nodes and links based on the search parameters, depth of 2, includes 2 closed loops", () => {
+            const nodeId = "id-OrJunction1";
+            const depth = 3;
+            const nodeTypes = ["ApplicationComponent", "ApplicationService", "OrJunction"]; 
+            const nodeStatuses = ["Current"];
+            const linkTypes = ["Flow"];
+
+            const filteredData = graphDataSearch.breadthFirstSearch(graphData, nodeId, depth, nodeTypes, nodeStatuses, linkTypes);
+            
+            expect(filteredData.nodesFiltered.length).toEqual(6);
+            expect(filteredData.linksFiltered.length).toEqual(6);
         });
     
     });
