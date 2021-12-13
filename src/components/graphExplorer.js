@@ -1,6 +1,6 @@
 import * as nodeUtils from './graphNode.js';
 import * as linkUtils from './graphLink.js';
-import * as settings from '../settings.js';
+import * as userSettings from './userSettings.js';
 
 // Drag
 const dragHandler = (simulation) => {
@@ -10,8 +10,9 @@ const dragHandler = (simulation) => {
         d.fy = d.y;
         if (!event.active) simulation.alpha(0.2).restart();
         
-        if (settings.stickyNodes_Enabled)
+        if (userSettings.getSetting('stickyNodesOnDrag_Enabled')) {
             d3.select(this).classed("node-fixed", true);
+        }
     }
     
     function dragged(event, d) {
@@ -20,7 +21,7 @@ const dragHandler = (simulation) => {
     }
     
     function dragended(event, d) {
-        if (!settings.stickyNodes_Enabled) {
+        if (!userSettings.getSetting('stickyNodesOnDrag_Enabled')) {
             delete d.fx;
             delete d.fy;
         }
@@ -42,7 +43,7 @@ const setupGraphActions = (simulation, renderedNodes, callback) => {
         callback(d.id);
     });
 
-    if (settings.stickyNodes_Enabled) {
+    if (userSettings.getSetting('stickyNodesOnDrag_Enabled')) {
         renderedNodes.on("click", function (event, d) {
             delete d.fx;
             delete d.fy;

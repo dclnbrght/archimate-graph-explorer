@@ -16,6 +16,9 @@ H1 {
     display: inline-block;
     padding: 0.4em 0.4em 0.4em 0.6em;
 }
+H4 {
+    margin: 1.6em 0 0 0;
+}
 #header-logo {
     float: left;    
     height: 2.1em;
@@ -69,7 +72,7 @@ dialog::backdrop {
 .dialog-button-container {
     display: flex;
     justify-content: space-around;
-    margin: 1em 0;
+    margin: 2em 0 1.4em 0;
 }
 .dialog-button,
 .userSetting-button {
@@ -90,9 +93,13 @@ dialog::backdrop {
     margin-top: 0.4em;
     cursor: pointer;
 }
+.dialog-checkbox {
+    float: right;
+    margin: 1em 0.6em 0 0.2em;
+}
 
 #userModelLoad-dragDrop-zone {
-    width: 24em;
+    width: 16em;
     height: 4.6em;
     border: 2px dashed #888;
     background-color: #eee;

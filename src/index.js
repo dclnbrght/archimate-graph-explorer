@@ -89,7 +89,7 @@ const modelOverviewClose = () => {
     document.getElementById("dialog-overview").close();
 }
 
-const setupHeader = () => {
+const setupFeatures = () => {
     if (querystringParameters.get('showheader')) {
         if (querystringParameters.get('showheader') === "true")
             document.querySelector("header").style.display = "block";
@@ -142,9 +142,12 @@ document.getElementById("userModelLoad-delete").addEventListener("click", functi
     // request default model from server
     requestModelData(modelLoaded);
 });
+document.getElementById("stickyNodesOnDrag").addEventListener("change", function (e) {
+    userSettings.updateSetting('stickyNodesOnDrag_Enabled', this.checked);    
+});
 
 window.onload = () => {
-    setupHeader();
+    setupFeatures();
     filterBar.setupFilters(filterSearch);
     
     if (!dataAccess.dataExistsInStore())

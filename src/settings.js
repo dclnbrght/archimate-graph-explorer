@@ -21,11 +21,6 @@ export const defaultSelectedFilterValues_depth = 1;
 export const defaultSelectedFilterValues_includeUnlinkedNodes = false;
 
 /*
-A dragged node sticks in place, it can be released by clicking on it
-*/
-export const stickyNodes_Enabled = true;
-
-/*
 User settings feature switch
 */
 export const userSettings_Enabled = true;

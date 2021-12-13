@@ -3,6 +3,7 @@ const userSettingsStoreKey = "archiGraphUserSettings";
 let defaultUserSettings = {
     userLoadedModel: false,
     userLoadedModelFilename: "",
+    stickyNodesOnDrag_Enabled: true
 };
 
 const saveSettings = (userSettings) => {    
@@ -18,6 +19,10 @@ const getSettings = () => {
 
 const getSetting = (key) => {    
     let userSettings = getSettings();
+    if (key in userSettings === false && key in defaultUserSettings) {
+        updateSetting(key, defaultUserSettings[key]);
+        userSettings = getSettings();
+    }
     return userSettings[key];
 }
 
