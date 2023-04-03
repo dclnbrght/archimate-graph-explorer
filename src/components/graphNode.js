@@ -147,6 +147,9 @@ const iconForNodeType = (nodeType) => {
         case "CourseOfAction":
             return "M -4 -1 A 1 1 0 0 0 6 -1 M 6 -1 A 1 1 0 0 0 -4 -1 M -2 -1 A 1 1 0 0 0 4 -1 A 1 1 0 0 0 -2 -1 M 0 -1 A 1 1 0 0 0 2 -1 A 1 1 0 0 0 0 -1 m 0.5 0 a 0.5 0.5 0 0 0 1 0 a 0.5 0.5 0 0 0 -1 0 m 0.5 0 m -6 3 L -2.5 2.5 L -3 5 Z M -6 5 Q -6 3 -4 3 L -3.5 4 Q -5 4 -5 6 Z";
 
+        case "Deliverable":
+            return "M -5 2 V -3 H 5 V 2 Q 2.5 0 0 2 Q -2.5 4 -5 2 Z";
+
         case "Device":
             return "M -3 2 L -5 5 H 5 L 3 2 H 4 C 5 2 5 2 5 1 V -4 C 5 -5 5 -5 4 -5 h -8 C -5 -5 -5 -5 -5 -4 V 1 C -5 2 -5 2 -4 2 H -3 H 3";
 
@@ -200,6 +203,9 @@ const iconForNodeType = (nodeType) => {
 
         case "ValueStream":
             return "M 6 0 L 3 4 H -5 L -2 0 L -5 -4 H 3 Z";
+            
+        case "WorkPackage":
+            return "M 3 2 V 0.5 L 5.2 2 L 3 3.5 V 2 H 3.4 V 1.4 L 4.2 2 L 3.4 2.6 V 2 M 3 2 H -2 A 3.4 3.4 0 1 1 0.4 1";
         
         case "AndJunction":
         case "OrJunction":
