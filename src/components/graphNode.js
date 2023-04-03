@@ -63,12 +63,11 @@ const colorForNodeType = (nodeType) => {
         case "ValueStream":
             return "#f5deaa";
         case "Deliverable":
+        case "Gap":
         case "ImplementationEvent":
+        case "Plateau":
         case "WorkPackage":
             return "#ffe0e0";
-        case "Gap":
-        case "Plateau":
-            return "#e0ffe0";
     }
     
     return "#fefefe";
