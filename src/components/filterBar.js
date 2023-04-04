@@ -125,10 +125,15 @@ const setupDepthFilter = (querystringParameters, previousSelectedFilterValues, f
 
 const setupUnlinkedNodesFilter = (querystringParameters, previousSelectedFilterValues, filterSearch) => {
     const unlinkedNodesFilter = document.getElementById("unlinkedNodesFilter");
-    unlinkedNodesFilter.checked = (querystringParameters.get('unrelatedelements')?.toLowerCase() === 'true')    
-        ?? previousSelectedFilterValues.includeUnlinkedNodes 
+
+    const qsParamIsSet = (querystringParameters.get('unrelatedelements') !== null);
+    const qsParamValue = (querystringParameters.get('unrelatedelements')?.toLowerCase() === 'true');    
+
+    unlinkedNodesFilter.checked = qsParamIsSet ? qsParamValue : (
+        previousSelectedFilterValues.includeUnlinkedNodes 
         ?? settings.defaultSelectedFilterValues_includeUnlinkedNodes
-        ?? false
+        ?? false);
+
     unlinkedNodesFilter.addEventListener("change", () => {
         filterSearch();
     });

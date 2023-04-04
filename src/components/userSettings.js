@@ -40,6 +40,8 @@ const settingsDialogOpen = () => {
         document.getElementById('userModelLoad-delete').classList.remove('hidden');
     }
     
+    document.getElementById("stickyNodesOnDrag").checked = getSetting('stickyNodesOnDrag_Enabled');
+    
     document.getElementById("dialog-userSettings").showModal();
 }
 

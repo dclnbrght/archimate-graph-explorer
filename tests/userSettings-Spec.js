@@ -7,6 +7,7 @@ describe("userSettings", function() {
         expect(settings).toEqual({
             userLoadedModel: false,
             userLoadedModelFilename: "",
+            stickyNodesOnDrag_Enabled: true
         });
     });
     
