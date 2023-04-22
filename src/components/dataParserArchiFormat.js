@@ -14,7 +14,7 @@ const formatType = (xsiType, junctionType) => {
 
 const parseNodesFromXml = (xml) => {
     // get all elements, except those in the relations and diagrams folders
-    const nodes = [].map.call(xml.querySelectorAll('folder:not([type="relations"],[type="diagrams"]) element'), (e) => {
+    const nodes = [].map.call(xml.querySelectorAll('model > folder:not([type="relations"],[type="diagrams"]) element'), (e) => {
         return {
             id: e.getAttribute("id"),         
             type: formatType(e.getAttribute("xsi:type"), e.getAttribute("type")),
