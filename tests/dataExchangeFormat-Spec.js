@@ -1,6 +1,6 @@
-import * as dataAccess from '../src/components/dataAccess.js';
+import * as dataParserExchangeFormat from '../src/components/dataParserExchangeFormat.js';
 
-describe("dataAccess", function() {
+describe("dataParserExchangeFormat", function() {
 
     it("should be able to parse Property Definitions from xml", () => {
         const expectedObject = {
@@ -18,7 +18,7 @@ describe("dataAccess", function() {
         </propertyDefinitions>`;
         const xml = new window.DOMParser().parseFromString(xmlString, "text/xml");
 
-        const parsedObject = dataAccess.exportForTesting.parsePropertyDefinitionsFromXml(xml);
+        const parsedObject = dataParserExchangeFormat.exportForTesting.parsePropertyDefinitionsFromXml(xml);
 
         expect(JSON.stringify(parsedObject)).toEqual(JSON.stringify(expectedObject));    
     });    
@@ -44,7 +44,7 @@ describe("dataAccess", function() {
         `;
         const xml = new window.DOMParser().parseFromString(xmlString, "text/xml");
         
-        const parsedObject = dataAccess.exportForTesting.parseNodesFromXml(xml, null);
+        const parsedObject = dataParserExchangeFormat.exportForTesting.parseNodesFromXml(xml, null);
          
         expect(parsedObject).toEqual(expectedObject);
     });
@@ -81,12 +81,11 @@ describe("dataAccess", function() {
             </model>`;
         const xml = new window.DOMParser().parseFromString(xmlString, "text/xml");
         
-        const parsedObject = dataAccess.exportForTesting.parseNodesFromXml(xml, propertyDefinitions);
+        const parsedObject = dataParserExchangeFormat.exportForTesting.parseNodesFromXml(xml, propertyDefinitions);
         
         expect(parsedObject).toEqual(expectedObject);
     });
 
-    
     it("should be able to parse Links with properties from xml", () => {
         const expectedObject = [{
             "id": "id-ed8ce066a7954fd787dab323e66a9eaf",
@@ -123,7 +122,7 @@ describe("dataAccess", function() {
         `;
         const xml = new window.DOMParser().parseFromString(xmlString, "text/xml");
         
-        const parsedObject = dataAccess.exportForTesting.parseLinksFromXml(xml, propertyDefinitions);
+        const parsedObject = dataParserExchangeFormat.exportForTesting.parseLinksFromXml(xml, propertyDefinitions);
          
         expect(parsedObject).toEqual(expectedObject);
     });

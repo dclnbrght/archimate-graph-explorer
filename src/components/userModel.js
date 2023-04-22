@@ -6,18 +6,20 @@ const modelFileLoad = (e, callback) => {
     if (droppedFiles.length > 1) {
         alert("Oops, only one file can be loaded!");
         return;
-    }    
+    }
+
     const droppedFile = e.dataTransfer.files[0];
-    if (!droppedFile.name.endsWith('.xml') || !droppedFile.type.match('^text/xml')) {        
-        alert("Oops, it must be and XML file! Please ensure it is an ArchiMate Exchange Format file.");
+    if (!['.xml', '.archimate'].some(ext => droppedFile.name.endsWith(ext))) {     
+        alert("Oops, it must be and .xml or .archimate file! Please ensure it is an ArchiMate Exchange Format or Archi file.");
         return;
     }
+    
     const msg = document.getElementById('userModelLoad-dragDrop-message');
     msg.innerText = `Loading: ${droppedFile.name}`;
 
     const reader = new FileReader();
     reader.onload = (e) => {
-        dataAccess.processExchangeFormatFile(e.target.result);
+        dataAccess.processModelFile(e.target.result);
 
         userSettings.updateSetting("userLoadedModel", true);
         userSettings.updateSetting("userLoadedModelFilename", droppedFile.name);

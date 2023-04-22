@@ -1,5 +1,7 @@
 # archimate-graph-explorer
-A web application which renders an interactive force directed graph of an ArchiMate model, from an ArchiMate Model Exchange File Format.
+The ArchiMate Graph Explorer is a web application which renders an interactive force directed graph of an ArchiMate model.
+
+Supports [ArchiMate Exchange Format](https://www.opengroup.org/open-group-archimate-model-exchange-file-format) (.xml) or [Archi](https://www.archimatetool.com/) (.archimate) files.
 
 Supports the ArchiMate 3.2 specification.
 
